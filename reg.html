@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0; /* Цвет фона страницы */
+        }
+
+        .auth-container {
+            background-color: white; /* Белый квадрат */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень для красоты */
+            text-align: center;
+        }
+
+        form {
+            display: inline-grid;
+            gap: 10px; /* Расстояние между элементами формы */
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .back-button {
+            padding: 10px;
+            background-color: #6c757d; /* Серый цвет для кнопки */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%; /* Чтобы кнопка была на всю ширину формы */
+        }
+
+        .back-button:hover {
+            background-color: #5a6268; /* Темнее при наведении */
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <form action="avto/registration.php" method="post">
+            Регистрация<br>
+            Логин: <input name="login" type="text">
+            Пароль: <input name="password" type="password">
+            <input type="submit" value="Зарегистрироваться">
+            <!-- Кнопка "Назад" внутри формы -->
+            <button type="button" class="back-button" onclick="history.back()">Назад</button>
+        </form>
+    </div>
+</body>
+</html>
