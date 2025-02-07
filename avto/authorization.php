@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("db_connect.php");
+include("/crud/config/connect.php");
 
 $login = $_POST['login'];
 $password = $_POST['password'];

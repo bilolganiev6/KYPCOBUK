@@ -4,7 +4,7 @@
      * Подключаем файл для получения соединения к базе данных (PhpMyAdmin, MySQL)
      */
 
-    require_once 'config/connect.php';
+    require_once '/crud/config/connect.php';
 
     /*
      * Получаем ID продукта из адресной строки - /product.php?id=1

@@ -6,7 +6,7 @@
  * Подключаем файл для получения соединения к базе данных (PhpMyAdmin, MySQL)
  */
 
-require_once '../config/connect.php';
+require_once '/crud/config/connect.php';
 
 /*
  * Создаем переменные со значениями, которые были получены с $_POST
