@@ -1,62 +1,53 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Авторизация</title>
-    <style> 
-        body {
-            background: url(images/t.jpg); 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0; /* Цвет фона страницы */
-        }
-
-        .auth-container {
-            background-color: white; /* Белый квадрат */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень для красоты */
-            text-align: center;
-        }
-
-        form {
-            display: inline-grid;
-            gap: 10px; /* Расстояние между элементами формы */
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        input[type="submit"] {
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <!-- Объявление кодировки документа -->
+    <meta charset="utf-8">
+    
+    <!-- Указывает браузеру использовать последнюю версию рендеринга в Internet Explorer -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Настройка viewport для адаптивности на мобильных устройствах -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Заголовок страницы -->
+    <title>Получение товаров</title>
+    
+    <!-- Подключение Bootstrap CSS для использования готовых стилей -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+    <!-- Подключение пользовательского CSS файла для дополнительной стилизации -->
+    <link href="app/assets/css/style.css" rel="stylesheet" />
+    
+    <!-- Подключение jQuery (библиотека для работы с DOM и AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="auth-container">
-        <form action="avto/authorization.php" method="post">
-            Авторизация<br>
-            Логин: <input name="login" type="text">
-            Пароль: <input name="password" type="password">
-            <input type="submit" value="Войти">
-        </form>
-        <p>У меня еще нет <a href="/reg.html">аккаунта</a></p>
-    </div>
+    <!-- Контейнер, в который будет выводиться содержимое приложения -->
+    <div id="app"></div>
+    
+    <!-- Подключение jQuery (дублируется, но здесь используется более старая версия) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    
+    <!-- Подключение JavaScript библиотеки Bootstrap для использования готовых компонентов и плагинов -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    
+    <!-- Подключение библиотеки Bootbox для создания всплывающих окон (например, подтверждения действий) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+    
+    <!-- Основной файл скриптов приложения -->
+    <script src="app/app.js"></script>
+    
+    <!-- Скрипты для работы с товарами -->
+    <script src="app/products/read-products.js"></script> <!-- Скрипт для отображения списка товаров -->
+    <script src="app/products/create-product.js"></script> <!-- Скрипт для создания нового товара -->
+    <script src="app/products/read-one-product.js"></script> <!-- Скрипт для просмотра одного товара -->
+    <script src="app/products/update-product.js"></script> <!-- Скрипт для обновления товара -->
+    <script src="app/products/delete-product.js"></script> <!-- Скрипт для удаления товара -->
+    <script src="app/products/products.js"></script> <!-- Общие функции для работы с товарами -->
+    <script src="app/products/search-products.js"></script> <!-- Скрипт для поиска товаров -->
 </body>
 </html>

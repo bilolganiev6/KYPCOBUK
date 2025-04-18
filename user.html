@@ -1,60 +1,43 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Склад</title>
-    <style>
-        /* Стили для шапки */
-        .top-right {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 100%;
-            background-color: black;
-            padding: 15px;
-            display: flex;
-            gap: 10px; /* Интервал между кнопками */
-            justify-content: flex-end; /* Выравниваем кнопки по правому краю */
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-        }
-        .top-right a {
-            text-decoration: none;
-            color: white;
-            background-color: #007BFF;
-            padding: 8px 16px;
-            border-radius: 5px;
-        }
-        .top-right a:hover {
-            background-color: #0056b3;
-        }
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Товары</title>
 
-        /* Дополнительные стили для основного содержимого */
-        body {
-            margin: 0;
-            padding-top: 60px;
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            margin-top: 20px;
-        }
-    </style>
+    <!-- bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- основной CSS -->
+    <link href="app/assets/css/styles.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
+
 <body>
-    <h1>Добро пожаловать на мою страницу!</h1>
+    <!-- здесь будет выводиться наше приложение -->
+    <div id="app"></div>
 
-    <!-- Шапка с кнопками -->
-    <div class="top-right">
-        <a href="crud/pros.php">Товары</a>
-        <a href="постав/user.php">Поставщики</a>
-        <a href="javascript:history.back()">Выход</a>
-    </div>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-    <!-- Основной контент -->
-    <div>
-        <p>Это основное содержимое страницы.</p>
-    </div>
+    <!-- bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+    <!-- JS для всплывающих окон -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+
+    <!-- основной файл скриптов -->
+    <script src="app/app.js"></script>
+
+    <!-- products scripts -->
+    <script src="app/products/read-products.js"></script>
+    <script src="app/products/read-one-product.js"></script>
+    <script src="app/products/products2.js"></script>
+    <script src="app/products/search-products.js"></script> 
 </body>
+
 </html>
