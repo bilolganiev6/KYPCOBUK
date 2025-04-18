@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Товары</title>
+    <!-- Подключение внешнего CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div style="display: flex; gap: 20px;">
+        <!-- Таблица товаров -->
+        <div style="flex: 3;">
+            <h1>Товары</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Наименование</th>
+                        <th>Количество</th>
+                        <th>Цена</th>
+                        <th>Ед.измерения</th>
+                    </tr>
+                </thead>
+                <tbody id="products-table">
+                </tbody>
+            </table>
+            <a href="javascript:history.back()" class="back-button">Назад</a>
+        </div>
+    </div>
+
+    <!-- JavaScript для работы с таблицей -->
+    <script>
+        // Функция для загрузки списка товаров
+        function loadProducts() {
+            fetch('vendor/read.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Ошибка сервера: ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(products => {
+                    const tableBody = document.getElementById('products-table');
+                    tableBody.innerHTML = ''; // Очищаем таблицу
+
+                    products.forEach(product => {
+                        const row = `
+                            <tr>
+                                <td>${product.id}</td>
+                                <td>${product.title}</td>
+                                <td>${product.kol}</td>
+                                <td>${product.price}</td>
+                                <td>${product.ed}</td>
+                            </tr>
+                        `;
+                        tableBody.innerHTML += row;
+                    });
+                })
+                .catch(error => {
+                    console.error('Ошибка загрузки товаров:', error.message || error);
+                    alert('Не удалось загрузить товары. Проверьте консоль разработчика.');
+                });
+        }
+
+        // Загрузка товаров при загрузке страницы
+        window.onload = loadProducts;
+    </script>
+</body>
+</html>

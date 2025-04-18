@@ -2,10 +2,9 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Авторизация</title>
-    <style> 
+    <title>Регистрация</title>
+    <style>
         body {
-            background: url(images/t.jpg); 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -46,17 +45,32 @@
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
+
+        .back-button {
+            padding: 10px;
+            background-color: #6c757d; /* Серый цвет для кнопки */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%; /* Чтобы кнопка была на всю ширину формы */
+        }
+
+        .back-button:hover {
+            background-color: #5a6268; /* Темнее при наведении */
+        }
     </style>
 </head>
 <body>
     <div class="auth-container">
-        <form action="avto/authorization.php" method="post">
-            Авторизация<br>
+        <form action="avto/registration.php" method="post">
+            Регистрация<br>
             Логин: <input name="login" type="text">
             Пароль: <input name="password" type="password">
-            <input type="submit" value="Войти">
+            <input type="submit" value="Зарегистрироваться">
+            <!-- Кнопка "Назад" внутри формы -->
+            <button type="button" class="back-button" onclick="history.back()">Назад</button>
         </form>
-        <p>У меня еще нет <a href="/reg.html">аккаунта</a></p>
     </div>
 </body>
 </html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <title>Товары</title>
+</head>
+<body>
+    <div style="flex: 3;">
+        <h1>Товары</h1>
+
+        <!-- Поле для поиска -->
+        <input type="text" id="search-input" placeholder="Поиск по названию..." oninput="searchProducts()">
+
+        <!-- Кнопка для открытия формы создания товара -->
+        <button id="add-product-btn">Добавить товар</button>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Наименование</th>
+                    <th>Количество</th>
+                    <th>Цена</th>
+                    <th>Ед.измерения</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody id="products-table">
+            </tbody>
+        </table>
+        <a href="../admin.html" class="back-button">Назад</a>
+    </div>
+
+    <!-- Форма для создания нового товара -->
+    <div id="add-form" style="display: none;">
+        <h2>Добавить товар</h2>
+        <form id="add-product-form">
+            <label for="add-title">Наименование:</label>
+            <input type="text" id="add-title" name="title" required><br>
+            <label for="add-kol">Количество:</label>
+            <input type="number" id="add-kol" name="kol" required><br>
+            <label for="add-price">Цена:</label>
+            <input type="number" id="add-price" name="price" required><br>
+            <label for="add-ed">Ед.измерения:</label>
+            <input type="text" id="add-ed" name="ed" required><br>
+            <button type="submit">Сохранить</button>
+            <button type="button" onclick="closeAddForm()">Отмена</button>
+        </form>
+    </div>
+
+    <!-- Форма для редактирования товара -->
+    <div id="edit-form" style="display: none;">
+        <h2>Редактировать товар</h2>
+        <form id="edit-product-form">
+            <input type="hidden" id="edit-id" name="id">
+            <label for="edit-title">Наименование:</label>
+            <input type="text" id="edit-title" name="title" required><br>
+            <label for="edit-kol">Количество:</label>
+            <input type="number" id="edit-kol" name="kol" required><br>
+            <label for="edit-price">Цена:</label>
+            <input type="number" id="edit-price" name="price" required><br>
+            <label for="edit-ed">Ед.измерения:</label>
+            <input type="text" id="edit-ed" name="ed" required><br>
+            <button type="submit">Сохранить</button>
+            <button type="button" onclick="closeEditForm()">Отмена</button>
+        </form>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
