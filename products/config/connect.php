@@ -1,5 +1,4 @@
 <?php
-// Настройки подключения к базе данных
 $host = 'localhost'; // Адрес сервера MySQL
 $dbname = 'crud'; // Название вашей базы данных
 $username = 'root'; // Имя пользователя MySQL
@@ -12,7 +11,6 @@ try {
 
     // Устанавливаем заголовок для всех ответов в формате JSON
     header('Content-Type: application/json');
-
 } catch (PDOException $e) {
     // Если произошла ошибка подключения, отправляем её в формате JSON
     die(json_encode([

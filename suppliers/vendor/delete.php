@@ -1,73 +1,30 @@
 <?php
-// Подключение к базе данных
-require_once '../config/connect.php';
+require '../config/connect.php';
 
-// Путь к JSON файлу
-$json_file = '../data/data.json';
+// Установка заголовка JSON
+header('Content-Type: application/json');
 
-// Проверяем существование файла
-if (!file_exists($json_file)) {
-    die('JSON файл не найден.');
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(['status' => 'error', 'message' => 'Недопустимый метод запроса']);
+    exit;
 }
 
-// Читаем содержимое JSON файла
-$data = json_decode(file_get_contents($json_file), true);
+$id = $_POST['id'] ?? null;
 
-// Проверяем корректность JSON
-if (json_last_error() !== JSON_ERROR_NONE) {
-    die('Ошибка при декодировании JSON: ' . json_last_error_msg());
+if (!$id) {
+    echo json_encode(['status' => 'error', 'message' => 'ID товара не указан']);
+    exit;
 }
 
-// Проверяем, указан ли ID
-if (!isset($_GET['id'])) {
-    die('ID не указан.');
+try {
+    $stmt = $pdo->prepare("DELETE FROM postavshiki WHERE id = :id");
+    $result = $stmt->execute(['id' => $id]);
+
+    if ($result && $stmt->rowCount() > 0) {
+        echo json_encode(['status' => 'success', 'message' => 'Товар успешно удален']);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Товар не найден или не удалось его удалить']);
+    }
+} catch (Exception $e) {
+    echo json_encode(['status' => 'error', 'message' => 'Ошибка при удалении товара: ' . $e->getMessage()]);
 }
-
-$id = intval($_GET['id']);
-
-// Удаляем запись из JSON
-if (isset($data['postavshiki']) && is_array($data['postavshiki'])) {
-    $data['postavshiki'] = array_filter($data['postavshiki'], function ($supplier) use ($id) {
-        return isset($supplier['id']) && $supplier['id'] != $id;
-    });
-
-    // Перезаписываем индексы массива
-    $data['postavshiki'] = array_values($data['postavshiki']);
-}
-
-// Перенумеруем IDs в JSON
-foreach ($data['postavshiki'] as $index => &$supplier) {
-    $supplier['id'] = $index + 1; // Новый ID = индекс + 1
-}
-unset($supplier); // Очищаем ссылку
-
-// Записываем данные обратно в JSON файл
-$result = file_put_contents($json_file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-if ($result === false) {
-    die('Ошибка записи в JSON файл.');
-}
-
-// Удаляем запись из MySQL
-$query = "DELETE FROM `postavshiki` WHERE `id`='$id'";
-if (!mysqli_query($connect, $query)) {
-    die('Ошибка при удалении из MySQL: ' . mysqli_error($connect));
-}
-
-// Перенумеруем IDs в MySQL
-$query = "SET @count = 0;";
-mysqli_query($connect, $query);
-
-$query = "UPDATE `postavshiki` SET `id` = @count:=@count+1;";
-if (!mysqli_query($connect, $query)) {
-    die('Ошибка при перенумерации IDs: ' . mysqli_error($connect));
-}
-
-$query = "ALTER TABLE `postavshiki` AUTO_INCREMENT = 1;";
-if (!mysqli_query($connect, $query)) {
-    die('Ошибка при очистке AUTO_INCREMENT: ' . mysqli_error($connect));
-}
-
-echo 'Поставщик успешно удален, и IDs перенумерованы!';
-header('Location: /suppliers/admin.php');
-exit;
-?>

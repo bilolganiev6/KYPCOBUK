@@ -1,43 +1,40 @@
 <?php
-// Подключение к базе данных
-$host = 'localhost'; // Хост (обычно localhost)
-$user = 'root';      // Имя пользователя MySQL
-$password = '';      // Пароль MySQL (если есть)
-$db_name = 'crud'; // Название вашей базы данных
+// Настройки подключения к базе данных
+$host = 'localhost'; // Адрес сервера MySQL
+$dbname = 'crud'; // Название вашей базы данных
+$username = 'root'; // Имя пользователя MySQL
+$password = ''; // Пароль MySQL
 
-$connect = mysqli_connect($host, $user, $password, $db_name);
+try {
+    // Создаем экземпляр PDO для работы с базой данных
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-if (!$connect) {
-    die('Ошибка подключения: ' . mysqli_connect_error());
+    // Устанавливаем заголовок для всех ответов в формате JSON
+    header('Content-Type: application/json');
+
+} catch (PDOException $e) {
+    // Если произошла ошибка подключения, отправляем её в формате JSON
+    die(json_encode([
+        'status' => 'error',
+        'message' => 'Не удалось подключиться к базе данных: ' . $e->getMessage()
+    ]));
 }
 
-// Путь к JSON файлу
-$json_file = __DIR__ . '/../data/data.json';
-
-// Проверяем существование файла
-if (!file_exists($json_file)) {
-    die('JSON файл не найден.');
+// Функция для отправки успешного JSON-ответа
+function sendSuccessResponse($data = []) {
+    echo json_encode([
+        'status' => 'success',
+        'data' => $data
+    ]);
+    exit;
 }
 
-// Читаем содержимое JSON файла
-$data = json_decode(file_get_contents($json_file), true);
-
-// Проверяем, существует ли массив postavshiki
-if (!isset($data['postavshiki']) || !is_array($data['postavshiki'])) {
-    die('Некорректный формат JSON файла.');
+// Функция для отправки ошибочного JSON-ответа
+function sendErrorResponse($message) {
+    echo json_encode([
+        'status' => 'error',
+        'message' => $message
+    ]);
+    exit;
 }
-
-// Цикл по массиву postavshiki
-foreach ($data['postavshiki'] as $postavshik) {
-    $id = intval($postavshik['id']);
-    $name = mysqli_real_escape_string($connect, $postavshik['name']);
-    $inn = mysqli_real_escape_string($connect, $postavshik['inn']);
-    $number = mysqli_real_escape_string($connect, $postavshik['number']);
-
-    // Вставка данных в таблицу
-    $query = "INSERT INTO `postavshiki` (`id`, `name`, `inn`, `number`) VALUES ('$id', '$name', '$inn', '$number') 
-              ON DUPLICATE KEY UPDATE `name`='$name', `inn`='$inn', `number`='$number'";
-    mysqli_query($connect, $query);
-}
-
-?>

@@ -103,20 +103,47 @@
         }
         .content {
             flex: 1;
-            padding: 40px 20px; /* Увеличил отступы для контента */
+            padding: 40px 20px;
+        }
+        
+        /* Стиль для дополнительного изображения под слайдером */
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+        }
+        .centered-image {
+            max-width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        .image-button {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: #ff7220;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .image-button:hover {
+            background-color: #e55d0c;
         }
         
         /* Стили для подвала */
         footer {
             background-color: #0338bc;
             color: white;
-            padding: 20px 10px; /* Увеличил отступы внутри подвала */
+            padding: 20px 10px;
             text-align: center;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 20px;
-            margin-top: 50px; /* Добавил отступ сверху для подвала */
+            margin-top: 50px;
         }
         .social-icons {
             display: flex;
@@ -143,7 +170,7 @@
             <img src="images/logo.png" alt="Логотип компании" class="logo">
         </div>
         <a href="products/admin.html">Управление товарами</a>
-        <a href="suppliers/admin.php">Управление поставщиками</a>
+        <a href="suppliers/admin.html">Управление поставщиками</a>
         <a href="/">Выход</a>
     </div>
 
@@ -153,43 +180,48 @@
         <div class="carousel-slide active">
             <img src="images/photo1.jpg" alt="Фото 1">
             <div class="slide-overlay">
-                <h2 class="slide-title">Заголовок 1</h2>
-                <p class="slide-text">Текст описания для первого слайда. Здесь может быть информация о вашей компании или акциях.</p>
+                <h2 class="slide-title">О нас</h2>
+                <p class="slide-text">+7(960)744-60-99</p>
+                <p class="slide-text">bilolganiev6@gmail.ru</p>
             </div>
         </div>
         
         <!-- Слайд 2 -->
         <div class="carousel-slide">
-            <img src="images/photo2.jpg" alt="Фото 2">
+            <img src="images/photo3.jpg" alt="Фото 2">
             <div class="slide-overlay">
-                <h2 class="slide-title">Заголовок 2</h2>
-                <p class="slide-text">Текст описания для второго слайда. Расскажите о своих преимуществах или услугах.</p>
+                <h2 class="slide-title">Лучшие товары</h2>
             </div>
         </div>
         
         <!-- Слайд 3 -->
         <div class="carousel-slide">
-            <img src="images/photo3.jpg" alt="Фото 3">
+            <img src="images/photo2.jpg" alt="Фото 3">
             <div class="slide-overlay">
-                <h2 class="slide-title">Заголовок 3</h2>
-                <p class="slide-text">Текст описания для третьего слайда. Призыв к действию или контактная информация.</p>
+                <h2 class="slide-title">От лучших поставщиков</h2>
             </div>
         </div>
+    </div>
+
+    <!-- Добавленное изображение с кнопкой -->
+    <div class="image-container">
+        <img src="images/aksiya.png" alt="Дополнительное изображение" class="centered-image">
+        <a href="products/admin.html" class="image-button">Заказать</a>
     </div>
 
     <!-- Подвал -->
     <footer>
         <div class="social-icons">
-            <a href="https://t.me/your_telegram" target="_blank" title="Telegram">
+            <a href="https://t.me/@bilol_ganiev6" target="_blank" title="Telegram">
                 <i class="fab fa-telegram"></i>
             </a>
-            <a href="https://vk.com/your_vk" target="_blank" title="VK">
+            <a href="https://vk.com/id817145525" target="_blank" title="VK">
                 <i class="fab fa-vk"></i>
             </a>
         </div>
         <div class="phone">
             <i class="fas fa-phone"></i>
-            <span>+7 (123) 456-78-90</span>
+            <span>+7 (960) 744-60-99</span>
         </div>
     </footer>
 
@@ -199,18 +231,12 @@
             let currentIndex = 0;
             
             function showNextSlide() {
-                // Скрываем текущий слайд
                 slides[currentIndex].classList.remove('active');
-                
-                // Переходим к следующему слайду
                 currentIndex = (currentIndex + 1) % slides.length;
-                
-                // Показываем новый слайд
                 slides[currentIndex].classList.add('active');
             }
             
-            // Меняем слайды каждые 5 секунд
-            setInterval(showNextSlide, 5000);
+            setInterval(showNextSlide, 3000);
         });
     </script>
 </body>

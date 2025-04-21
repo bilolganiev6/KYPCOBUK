@@ -20,8 +20,14 @@ function loadProducts(query = '') {
         })
         .then(products => {
             console.log("Received data from server:", products); // Выводим полученные данные для отладки
-            if (!Array.isArray(products)) { // Проверяем, что ответ является массивом
-                throw new Error('Invalid data format'); // Если нет, выбрасываем ошибку
+
+            // Обрабатываем случай, если сервер вернул объект вместо массива
+            if (!Array.isArray(products)) {
+                if (typeof products === 'object' && products !== null) {
+                    products = [products]; // Преобразуем объект в массив из одного элемента
+                } else {
+                    throw new Error('Invalid data format'); // Если формат всё ещё неверный, выбрасываем ошибку
+                }
             }
 
             // Выводим данные о товарах в консоль в формате JSON
@@ -61,8 +67,8 @@ function renderProducts(products) {
 function escapeHTML(str) {
     return String(str).replace(/[&<>"']/g, m => ({ // Заменяем специальные символы на их HTML-сущности
         '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
+        '<': '<',
+        '>': '>',
         '"': '&quot;',
         "'": '&#39;'
     }[m]));

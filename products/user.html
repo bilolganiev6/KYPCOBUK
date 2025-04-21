@@ -12,6 +12,8 @@
         <!-- Таблица товаров -->
         <div style="flex: 3;">
             <h1>Товары</h1>
+            <!-- Поле для поиска -->
+            <input type="text" id="search-input" placeholder="Поиск по названию..." oninput="searchProducts()">
             <table class="table">
                 <thead>
                     <tr>
@@ -29,42 +31,6 @@
         </div>
     </div>
 
-    <!-- JavaScript для работы с таблицей -->
-    <script>
-        // Функция для загрузки списка товаров
-        function loadProducts() {
-            fetch('vendor/read.php')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Ошибка сервера: ' + response.status);
-                    }
-                    return response.json();
-                })
-                .then(products => {
-                    const tableBody = document.getElementById('products-table');
-                    tableBody.innerHTML = ''; // Очищаем таблицу
-
-                    products.forEach(product => {
-                        const row = `
-                            <tr>
-                                <td>${product.id}</td>
-                                <td>${product.title}</td>
-                                <td>${product.kol}</td>
-                                <td>${product.price}</td>
-                                <td>${product.ed}</td>
-                            </tr>
-                        `;
-                        tableBody.innerHTML += row;
-                    });
-                })
-                .catch(error => {
-                    console.error('Ошибка загрузки товаров:', error.message || error);
-                    alert('Не удалось загрузить товары. Проверьте консоль разработчика.');
-                });
-        }
-
-        // Загрузка товаров при загрузке страницы
-        window.onload = loadProducts;
-    </script>
+    <script src="js/scriptu.js"></script>
 </body>
 </html>

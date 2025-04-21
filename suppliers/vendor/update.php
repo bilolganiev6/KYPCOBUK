@@ -1,47 +1,38 @@
 <?php
-// Исправленный путь к connect.php
-require_once '../config/connect.php';
+require '../config/connect.php';
 
-// Путь к JSON файлу
-$json_file = '../data/data.json';
+// Установка заголовка JSON
+header('Content-Type: application/json');
 
-// Проверяем существование файла
-if (!file_exists($json_file)) {
-    die('JSON файл не найден.');
-}
-
-// Читаем содержимое JSON файла
-$data = json_decode(file_get_contents($json_file), true);
-
-// Проверяем корректность JSON
-if (json_last_error() !== JSON_ERROR_NONE) {
-    die('Ошибка при декодировании JSON: ' . json_last_error_msg());
-}
-
-// Проверяем метод запроса
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Получаем данные из формы
-    $id = intval($_POST['id']);
-    $name = htmlspecialchars($_POST['name']);
-    $inn = htmlspecialchars($_POST['inn']);
-    $number = htmlspecialchars($_POST['number']);
-
-    // Находим и обновляем запись по ID
-    foreach ($data['postavshiki'] as &$supplier) {
-        if ($supplier['id'] == $id) {
-            $supplier['name'] = $name;
-            $supplier['inn'] = $inn;
-            $supplier['number'] = $number;
-            break;
-        }
-    }
-    unset($supplier); // Очищаем ссылку
-
-    // Записываем данные обратно в JSON файл
-    file_put_contents($json_file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-
-    echo 'Данные поставщика успешно обновлены!';
-    header('Location: /suppliers/admin.php');
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(['status' => 'error', 'message' => 'Недопустимый метод запроса']);
     exit;
 }
-?>
+
+$id = $_POST['id'] ?? null;
+$name = $_POST['name'] ?? '';
+$inn = $_POST['inn'] ?? 0;
+$number = $_POST['number'] ?? 0;
+
+if (!$id || !$name || !$inn || !$number || !$ed) {
+    echo json_encode(['status' => 'error', 'message' => 'Не все обязательные поля заполнены']);
+    exit;
+}
+
+try {
+    $stmt = $pdo->prepare("UPDATE products SET name = :name, inn = :inn, number = :number WHERE id = :id");
+    $result = $stmt->execute([
+        'id' => $id,
+        'name' => $name,
+        'inn' => $inn,
+        'number' => $number,
+    ]);
+
+    if ($result && $stmt->rowCount() > 0) {
+        echo json_encode(['status' => 'success', 'message' => 'Товар успешно обновлен']);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Товар не найден или не удалось его обновить']);
+    }
+} catch (Exception $e) {
+    echo json_encode(['status' => 'error', 'message' => 'Ошибка при обновлении товара: ' . $e->getMessage()]);
+}

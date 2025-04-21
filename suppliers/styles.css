@@ -12,15 +12,10 @@ h1 {
     margin-bottom: 20px;
     color: #333;
 }
-.table-container {
-    width: 100%; /* Ширина контейнера таблицы */
-    max-width: 1400px; /* Максимальная ширина */
-    margin: 0 auto;
-}
 .table {
-    width: 100%; /* Таблица на всю ширину контейнера */
+    width: 70%; /* Уменьшили ширину таблицы */
     border: none;
-    margin-bottom: 20px;
+    margin-bottom: 40px; /* Увеличили расстояние между таблицами */
     background: #fff;
     border-radius: 8px;
     overflow: hidden;
@@ -44,9 +39,9 @@ h1 {
 .table tbody td {
     text-align: left;
     border: none;
-    padding: 12px 15px; /* Увеличил padding для лучшей читаемости */
+    padding: 10px 15px;
     font-size: 14px;
-    vertical-align: middle;
+    vertical-align: top;
 }
 .table tbody tr:nth-child(even) {
     background: #f3f3f3;

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <title>Поставщики</title>
+</head>
+<body>
+    <div style="flex: 3;">
+        <h1>Поставщики</h1>
+
+        <!-- Поле для поиска -->
+        <input type="text" id="search-input" placeholder="Поиск по названию..." oninput="searchPostavshiki()">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ФИО</th>
+                    <th>ИНН</th>
+                    <th>Номер телефона</th>
+                </tr>
+            </thead>
+            <tbody id="postavshiki-table">
+            </tbody>
+        </table>
+        <a href="../admin.html" class="back-button">Назад</a>
+    </div>
+    <script src="js/scriptu.js"></script>
+</body>
+</html>

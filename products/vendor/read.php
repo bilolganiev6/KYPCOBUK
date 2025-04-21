@@ -22,12 +22,15 @@ try {
     } elseif (isset($_GET['query'])) {
         // Если есть параметр 'query', выполняем поиск по названию товара
         $query = trim($_GET['query']);
-        echo "Query: " . $query; // Debug statement
         $stmt = $pdo->prepare("SELECT * FROM products WHERE title LIKE :query");
         $stmt->execute(['query' => "%$query%"]);
         $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        echo json_encode($products); // Возвращаем список товаров
+        if (empty($products)) {
+            echo json_encode([]); // Возвращаем пустой массив, если ничего не найдено
+        } else {
+            echo json_encode($products); // Возвращаем список товаров
+        }
     } else {
         // Если нет параметров, загружаем все товары
         $stmt = $pdo->query("SELECT * FROM products");
@@ -36,6 +39,7 @@ try {
         echo json_encode($products); // Возвращаем список всех товаров
     }
 } catch (Exception $e) {
-    echo json_encode(['status' => 'error', 'message' => 'Ошибка при чтении данных: ' . $e->getMessage()]);
+    error_log('Error in vendor/read.php: ' . $e->getMessage()); // Записываем ошибку в лог
+    echo json_encode(['status' => 'error', 'message' => 'Произошла ошибка при чтении данных']);
 }
 ?>
